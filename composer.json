@@ -1,0 +1,20 @@
+{
+    "name": "cheerios/dumpsterfire-components",
+    "description": "Components for Dumpsterfire SDK",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Cheerios4316"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DumpsterfireComponents\\": "src/"
+        },
+        "classmap": [
+        "src/"
+    ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
