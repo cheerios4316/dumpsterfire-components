@@ -2,7 +2,7 @@
 
 namespace DumpsterfireComponents;
 
-use DumpsterfireComponents\Container\Container;
+use DumpsterfireBase\Container\Container;
 use DumpsterfireComponents\Interfaces\ISetup;
 use DumpsterfireComponents\Renderer\ComponentRenderer;
 

@@ -2,10 +2,9 @@
 
 namespace DumpsterfireComponents\ComponentCache;
 
+use DumpsterfireBase\Container\Container;
+use DumpsterfireBase\Interfaces\SingletonInterface;
 use DumpsterfireComponents\Component;
-use DumpsterfireComponents\ComponentCache\ComponentDataObject;
-use DumpsterfireComponents\Container\Container;
-use DumpsterfireComponents\Container\SingletonInterface;
 use DumpsterfireComponents\Renderer\ComponentPath;
 
 class ComponentDataManager implements SingletonInterface
@@ -28,7 +27,15 @@ class ComponentDataManager implements SingletonInterface
 
     public function createAndSave(Component $component, ?string $classPath = null, ?string $viewPath = null, ?string $js = null, ?string $css = null): ComponentDataObject
     {
-        $obj = Container::getInstance()->create(ComponentDataObject::class)->hydrate($classPath, $viewPath, $js, $css);
+        $componentDataObject = Container::getInstance()->create(ComponentDataObject::class);
+
+        $obj = $componentDataObject->hydrate([
+            "classPath": $classPath,
+            "viewPath": $viewPath,
+            "js": $js,
+            "css": $css
+            ]
+        );
 
         $this->save($component, $obj);
 
@@ -59,6 +66,16 @@ class ComponentDataManager implements SingletonInterface
     public function getClassPath(Component $component): ?string
     {
         return $this->getComponentData($component)?->getClassPath();
+    }
+
+    public function getJsPath(Component $component): ?string
+    {
+        return $this->getComponentData($component)?->getJsPath();
+    }
+
+    public function getCssPath(Component $component): ?string
+    {
+        return $this->getComponentData($component)?->getCssPath();
     }
 
     public static function getInstance(): self

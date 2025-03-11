@@ -2,22 +2,14 @@
 
 namespace DumpsterfireComponents\ComponentCache;
 
-class ComponentDataObject
+use DumpsterfireBase\Hydrator\BaseHydrator;
+
+class ComponentDataObject extends BaseHydrator
 {
     protected ?string $classPath = null;
     protected ?string $view = null;
     protected ?string $js = null;
     protected ?string $css = null;
-
-    public function hydrate(?string $classPath = null, ?string $view = null, ?string $js = null, ?string $css = null): self
-    {
-        $this->classPath = $classPath;
-        $this->view = $view;
-        $this->js = $js;
-        $this->css = $css;
-
-        return $this;
-    }
 
     public function getClassPath(): ?string
     {

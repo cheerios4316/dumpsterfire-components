@@ -11,6 +11,13 @@ class ComponentRenderer
 {
     protected ?Component $component = null;
 
+    protected AssetsRenderer $assetsRenderer;
+
+    public function __construct(AssetsRenderer $assetsRenderer)
+    {
+        $this->assetsRenderer = $assetsRenderer;
+    }
+
     public function loadComponent(Component $component): self
     {
         $this->component = $component;
@@ -18,6 +25,10 @@ class ComponentRenderer
         return $this;
     }
 
+    /**
+     * @return string
+     * @throws ComponentRendererException
+     */
     public function getHtmlContent(): string
     {
         $componentData = $this->getComponentData();
@@ -27,8 +38,8 @@ class ComponentRenderer
 
 
     /**
-     * @param Component $component
      * @return ComponentDataObject
+     * @throws ComponentRendererException
      */
     protected function getComponentData(): ComponentDataObject
     {
@@ -39,6 +50,11 @@ class ComponentRenderer
         return $componentDataManager->getComponentData($component);
     }
 
+    /**
+     * @param string $view
+     * @return string
+     * @throws ComponentRendererException
+     */
     protected function getViewContent(string $view): string
     {
         $component = $this->getComponent();
@@ -56,6 +72,9 @@ class ComponentRenderer
         return ob_get_clean();
     }
 
+    /**
+     * @throws ComponentRendererException
+     */
     protected function getComponent(): Component
     {
         if(!$this->component) {
