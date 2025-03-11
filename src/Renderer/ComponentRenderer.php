@@ -3,19 +3,19 @@
 namespace DumpsterfireComponents\Renderer;
 
 use DumpsterfireComponents\Component;
-use DumpsterfireComponents\ComponentCache\ComponentDataObject;
 use DumpsterfireComponents\ComponentCache\ComponentDataManager;
+use DumpsterfireComponents\ComponentCache\ComponentDataObject;
 use DumpsterfireComponents\Exceptions\ComponentRendererException;
 
 class ComponentRenderer
 {
     protected ?Component $component = null;
 
-    protected AssetsRenderer $assetsRenderer;
+    protected AssetsManager $assetsManager;
 
-    public function __construct(AssetsRenderer $assetsRenderer)
+    public function __construct(AssetsManager $assetsManager)
     {
-        $this->assetsRenderer = $assetsRenderer;
+        $this->assetsManager = $assetsManager;
     }
 
     public function loadComponent(Component $component): self
@@ -32,6 +32,17 @@ class ComponentRenderer
     public function getHtmlContent(): string
     {
         $componentData = $this->getComponentData();
+
+        $js = $componentData->getJsPath();
+        $css = $componentData->getCssPath();
+
+        if($componentData->hasFile($js)) {
+            $this->assetsManager->loadJs($js);
+        }
+
+        if($componentData->hasFile($css)) {
+            $this->assetsManager->loadCss($css);
+        }
 
         return $this->getViewContent($componentData->getViewPath());
     }
@@ -57,6 +68,10 @@ class ComponentRenderer
      */
     protected function getViewContent(string $view): string
     {
+        if(!file_exists($view)) {
+            return '';
+        }
+
         $component = $this->getComponent();
 
         ob_start();

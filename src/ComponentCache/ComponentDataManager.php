@@ -30,10 +30,10 @@ class ComponentDataManager implements SingletonInterface
         $componentDataObject = Container::getInstance()->create(ComponentDataObject::class);
 
         $obj = $componentDataObject->hydrate([
-            "classPath": $classPath,
-            "viewPath": $viewPath,
-            "js": $js,
-            "css": $css
+            "classPath" => $classPath,
+            "view" => $viewPath,
+            "js" => $js,
+            "css" => $css
             ]
         );
 

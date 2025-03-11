@@ -11,6 +11,20 @@ class ComponentDataObject extends BaseHydrator
     protected ?string $js = null;
     protected ?string $css = null;
 
+    /**
+     * @param array{classPath: string, view: string, js: string, css: string} $data
+     * @return self
+     */
+    public function hydrate(array $data): self
+    {
+        return parent::hydrate($data);
+    }
+
+    public function hasFile(string $path): bool
+    {
+        return file_exists($path);
+    }
+
     public function getClassPath(): ?string
     {
         return $this->classPath;
