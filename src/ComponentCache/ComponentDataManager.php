@@ -5,7 +5,7 @@ namespace DumpsterfireComponents\ComponentCache;
 use DumpsterfireBase\Container\Container;
 use DumpsterfireBase\Interfaces\SingletonInterface;
 use DumpsterfireComponents\Component;
-use DumpsterfireComponents\Renderer\ComponentPath;
+use DumpsterfireComponents\Renderer\ComponentPath\ComponentPath;
 
 class ComponentDataManager implements SingletonInterface
 {
@@ -50,10 +50,12 @@ class ComponentDataManager implements SingletonInterface
             return $data;
         }
 
-        $path = ComponentPath::getDefinitionPath($component);
-        $view = ComponentPath::getViewPath($component);
-        $js = ComponentPath::getJsPath($component);
-        $css = ComponentPath::getCssPath($component);
+        $componentPath = Container::getInstance()->create(ComponentPath::class);
+
+        $path = $componentPath->getDefinitionPath($component);
+        $view = $componentPath->getViewPath($component);
+        $js = $componentPath->getJsPath($component);
+        $css = $componentPath->getCssPath($component);
 
         return $this->createAndSave($component, $path, $view, $js, $css);
     }
