@@ -3,8 +3,10 @@
 namespace DumpsterfireComponents;
 
 use DumpsterfireBase\Container\Container;
+use DumpsterfireBase\Exceptions\DumpsterfireBaseException;
 use DumpsterfireComponents\Exceptions\ComponentRendererException;
 use DumpsterfireComponents\Interfaces\ISetup;
+use DumpsterfireComponents\Interfaces\RendererInterface;
 use DumpsterfireComponents\Renderer\ComponentRenderer;
 
 /**
@@ -18,7 +20,6 @@ abstract class Component
     /**
      * Prints the HTML content of a component.
      * @return void
-     * @throws ComponentRendererException
      */
     public function render(): void
     {
@@ -29,13 +30,12 @@ abstract class Component
      * Returns the HTML content of a component.
      *
      * @return string
-     * @throws Exceptions\ComponentRendererException
      */
     public function content(): string
     {
         $this->preRender();
 
-        return Container::getInstance()->create(ComponentRenderer::class)->loadComponent($this)->getHtmlContent();
+        return $this->getComponentRenderer()->loadComponent($this)->getHtmlContent();
     }
 
     /**
@@ -83,5 +83,10 @@ abstract class Component
         if ($this instanceof ISetup) {
             $this->setup();
         }
+    }
+
+    protected function getComponentRenderer(): RendererInterface
+    {
+        return Container::getInstance()->create(ComponentRenderer::class);
     }
 }

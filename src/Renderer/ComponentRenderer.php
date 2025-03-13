@@ -6,8 +6,9 @@ use DumpsterfireComponents\Component;
 use DumpsterfireComponents\ComponentCache\ComponentDataManager;
 use DumpsterfireComponents\ComponentCache\ComponentDataObject;
 use DumpsterfireComponents\Exceptions\ComponentRendererException;
+use DumpsterfireComponents\Interfaces\RendererInterface;
 
-class ComponentRenderer
+class ComponentRenderer implements RendererInterface
 {
     protected ?Component $component = null;
 
