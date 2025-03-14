@@ -1,10 +1,10 @@
 <?php
 
-namespace DumpsterfireComponents\PageTemplate\FlexComponent;
+namespace DumpsterfireComponents\PageTemplate\PageStructureComponents\PageWrapperComponent;
 
 use DumpsterfireComponents\Component;
 
-class FlexComponent extends Component
+class PageWrapperComponent extends Component
 {
     /**
      * @var Component[]

@@ -1,6 +1,6 @@
 <?php
 
-namespace DumpsterfireComponents\ComponentCache;
+namespace DumpsterfireComponents\ComponentData;
 
 use DumpsterfireBase\Hydrator\BaseHydrator;
 

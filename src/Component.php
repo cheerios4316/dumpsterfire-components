@@ -3,8 +3,7 @@
 namespace DumpsterfireComponents;
 
 use DumpsterfireBase\Container\Container;
-use DumpsterfireBase\Exceptions\DumpsterfireBaseException;
-use DumpsterfireComponents\Exceptions\ComponentRendererException;
+use DumpsterfireComponents\Interfaces\IRenderable;
 use DumpsterfireComponents\Interfaces\ISetup;
 use DumpsterfireComponents\Interfaces\RendererInterface;
 use DumpsterfireComponents\Renderer\ComponentRenderer;
@@ -13,7 +12,7 @@ use DumpsterfireComponents\Renderer\ComponentRenderer;
  * Base Component class.
  * Extend this class to create your own component.
  */
-abstract class Component
+abstract class Component implements IRenderable
 {
     protected bool $enabled = true;
 

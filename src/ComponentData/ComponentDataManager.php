@@ -1,6 +1,6 @@
 <?php
 
-namespace DumpsterfireComponents\ComponentCache;
+namespace DumpsterfireComponents\ComponentData;
 
 use DumpsterfireBase\Container\Container;
 use DumpsterfireBase\Interfaces\SingletonInterface;

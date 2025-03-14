@@ -5,6 +5,7 @@ namespace DumpsterfireComponents\Renderer\ComponentPath;
 use DumpsterfireComponents\Component;
 use DumpsterfireComponents\Renderer\ComponentPath\PathBuilder\CssPathBuilder;
 use DumpsterfireComponents\Renderer\ComponentPath\PathBuilder\JsPathBuilder;
+use DumpsterfireComponents\Renderer\ComponentPath\PathBuilder\PathBuilderInterface;
 use DumpsterfireComponents\Renderer\ComponentPath\PathBuilder\ViewPathBuilder;
 
 class ComponentPath
@@ -40,24 +41,27 @@ class ComponentPath
         return $class;
     }
 
-    public function getViewPath(Component $component): string
+    protected function getPath(PathBuilderInterface $builder, Component $component): string
     {
         $path = $this->getDefinitionPath($component);
 
-        return $this->viewPathBuilder->build($path);
+        return preg_replace('/^\/var\/www\/html\//', '', $builder->build($path));
+    }
+
+    public function getViewPath(Component $component): string
+    {
+        return $this->getPath($this->viewPathBuilder, $component);
     }
 
     public function getJsPath(Component $component): string
     {
-        $path = $this->getDefinitionPath($component);
+        return $this->getPath($this->jsPathBuilder, $component);
 
-        return $this->jsPathBuilder->build($path);
     }
 
     public function getCssPath(Component $component): string
     {
-        $path = $this->getDefinitionPath($component);
+        return $this->getPath($this->cssPathBuilder, $component);
 
-        return $this->cssPathBuilder->build($path);
     }
 }

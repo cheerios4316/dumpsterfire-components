@@ -2,9 +2,10 @@
 
 namespace DumpsterfireComponents\Renderer;
 
+use DumpsterfireComponents\AssetsManager\AssetsManager;
 use DumpsterfireComponents\Component;
-use DumpsterfireComponents\ComponentCache\ComponentDataManager;
-use DumpsterfireComponents\ComponentCache\ComponentDataObject;
+use DumpsterfireComponents\ComponentData\ComponentDataManager;
+use DumpsterfireComponents\ComponentData\ComponentDataObject;
 use DumpsterfireComponents\Exceptions\ComponentRendererException;
 use DumpsterfireComponents\Interfaces\RendererInterface;
 

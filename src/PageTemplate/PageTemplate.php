@@ -4,6 +4,10 @@ namespace DumpsterfireComponents\PageTemplate;
 
 use DumpsterfireBase\Container\Container;
 use DumpsterfireComponents\Component;
+use DumpsterfireComponents\Exceptions\ComponentRendererException;
+use DumpsterfireComponents\PageComponent;
+use DumpsterfireComponents\PageTemplate\StaticComponent\StaticComponent;
+use DumpsterfireComponents\Renderer\ComponentRenderer;
 
 class PageTemplate
 {
@@ -33,10 +37,10 @@ class PageTemplate
 
     /**
      * @template T
-     * @param class-string<Component> $class
-     * @return Component
+     * @param class-string<T> $class
+     * @return T
      */
-    protected static function containerGet(string $class): Component
+    protected static function containerGet(string $class)
     {
         return Container::getInstance()->create($class);
     }
@@ -57,5 +61,29 @@ class PageTemplate
         }
 
         return null;
+    }
+
+    /**
+     * @param PageComponent|null $component
+     * @return Component[]
+     * @throws ComponentRendererException
+     */
+    public static function getDefaultTemplate(?PageComponent $component): array
+    {
+        $templateHeader = PageTemplate::getHeaderComponent();
+        $templateFooter = PageTemplate::getFooterComponent();
+
+        $componentRenderer = self::getContainer()->create(ComponentRenderer::class)->loadComponent($component);
+
+        $staticPageComponent = self::getContainer()->create(StaticComponent::class)
+            ->setHtmlContent($componentRenderer->getHtmlContent());
+
+        $components = [$templateHeader, $staticPageComponent, $templateFooter];
+        return array_filter($components, fn($elem) => $elem !== null);
+    }
+
+    protected static function getContainer(): Container
+    {
+        return Container::getInstance();
     }
 }
