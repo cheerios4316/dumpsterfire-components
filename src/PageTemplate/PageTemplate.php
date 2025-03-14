@@ -73,12 +73,15 @@ class PageTemplate
         $templateHeader = PageTemplate::getHeaderComponent();
         $templateFooter = PageTemplate::getFooterComponent();
 
+        $header = $component->getHeaderComponent() ?? $templateHeader;
+        $footer = $component->getFooterComponent() ?? $templateFooter;
+
         $componentRenderer = self::getContainer()->create(ComponentRenderer::class)->loadComponent($component);
 
         $staticPageComponent = self::getContainer()->create(StaticComponent::class)
             ->setHtmlContent($componentRenderer->getHtmlContent());
 
-        $components = [$templateHeader, $staticPageComponent, $templateFooter];
+        $components = [$header, $staticPageComponent, $footer];
         return array_filter($components, fn($elem) => $elem !== null);
     }
 

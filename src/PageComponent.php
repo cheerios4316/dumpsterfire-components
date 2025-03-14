@@ -15,6 +15,10 @@ class PageComponent extends Component
     protected string $title = '';
     protected string $lang = 'en';
 
+    protected ?Component $headerComponent = null;
+
+    protected ?Component $footerComponent = null;
+
     protected function getComponentRenderer(): RendererInterface
     {
         return Container::getInstance()->create(PageRenderer::class);
@@ -33,5 +37,27 @@ class PageComponent extends Component
     public function getLang(): string
     {
         return $this->lang;
+    }
+
+    public function getHeaderComponent(): ?Component
+    {
+        return $this->headerComponent;
+    }
+
+    public function setHeaderComponent(?Component $headerComponent): self
+    {
+        $this->headerComponent = $headerComponent;
+        return $this;
+    }
+
+    public function getFooterComponent(): ?Component
+    {
+        return $this->footerComponent;
+    }
+
+    public function setFooterComponent(?Component $footerComponent): self
+    {
+        $this->footerComponent = $footerComponent;
+        return $this;
     }
 }
