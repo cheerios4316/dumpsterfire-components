@@ -32,6 +32,10 @@ abstract class Component implements IRenderable
      */
     public function content(): string
     {
+        if(!$this->isEnabled()) {
+            return '';
+        }
+
         $this->preRender();
 
         return $this->getComponentRenderer()->loadComponent($this)->getHtmlContent();
