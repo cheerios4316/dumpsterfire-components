@@ -6,6 +6,6 @@ class JsAsset extends BaseAsset
 {
     public function content(): string
     {
-        return "<script src=\"" . $this->path . "\"></script>";
+        return "<script type=\"module\" src=\"" . $this->path . "\"></script>";
     }
 }

@@ -60,26 +60,6 @@ class ComponentDataManager implements SingletonInterface
         return $this->createAndSave($component, $path, $view, $js, $css);
     }
 
-    public function getViewPath(Component $component): ?string
-    {
-        return $this->getComponentData($component)?->getViewPath();
-    }
-
-    public function getClassPath(Component $component): ?string
-    {
-        return $this->getComponentData($component)?->getClassPath();
-    }
-
-    public function getJsPath(Component $component): ?string
-    {
-        return $this->getComponentData($component)?->getJsPath();
-    }
-
-    public function getCssPath(Component $component): ?string
-    {
-        return $this->getComponentData($component)?->getCssPath();
-    }
-
     public static function getInstance(): self
     {
         if(!self::$instance) {

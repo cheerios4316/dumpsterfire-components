@@ -11,7 +11,7 @@ class DefaultDependencies
      */
     protected static array $default = [
         'js' => [
-            '/repos/dumpsterfire-components/src/js/Application.js'
+            'public/js/repos/dumpsterfire-components/src/js/Application.js'
         ],
         'css' => []
     ];
