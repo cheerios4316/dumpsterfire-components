@@ -1,28 +1,13 @@
-export class Component {
-    private $element: any;
-    constructor($element: any) {
-        this.$element = $element;
-        this.setData();
-        this.setDependencies();
-        this.init();
-    }
-
-    init() {
-        this.bindEvents();
-        this.$element.data('instance', this)
-    }
-
-    setDependencies() {}
-
-    setData() {}
-
-    bindEvents() {}
-}
+import $ from 'jquery';
 
 function initializeComponents(container = document) {
     $(container).find('[class*="-component"]').each(function () {
         const $element = $(this);
         const componentName = getComponentName(this);
+
+        if(!componentName) {
+            return;
+        }
 
         if (!$element.data('initialized') && typeof window[componentName] === 'function') {
             // @ts-ignore
