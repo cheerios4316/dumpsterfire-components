@@ -39,7 +39,7 @@ class ComponentRenderer implements RendererInterface
         $css = $componentData->getCssPath();
 
         if($componentData->hasFile($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $js)) {
-            $this->assetsManager->loadJs($js);
+            //$this->assetsManager->loadJs($js);
         }
 
         if($componentData->hasFile($css)) {

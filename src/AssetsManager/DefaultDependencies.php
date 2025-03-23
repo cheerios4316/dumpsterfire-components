@@ -13,7 +13,9 @@ class DefaultDependencies
         'js' => [
             '/public/dist/bundle.js',
         ],
-        'css' => []
+        'css' => [
+            '/public/dist/tailwind.css'
+        ]
     ];
 
     /**
