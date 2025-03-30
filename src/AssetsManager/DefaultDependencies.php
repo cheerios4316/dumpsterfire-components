@@ -2,6 +2,7 @@
 
 namespace DumpsterfireComponents\AssetsManager;
 
+use DumpsterfireBase\Interfaces\LoggerInterface;
 use DumpsterfireComponents\Exceptions\AssetsException;
 
 class DefaultDependencies
@@ -14,14 +15,32 @@ class DefaultDependencies
             '/public/dist/bundle.js',
         ],
         'css' => [
-            '/public/dist/tailwind.css'
+            '/public/dist/tailwind.css' //@todo refactor to use bundled 
         ]
     ];
+
+    protected static ?LoggerInterface $logger = null;
 
     /**
      * @var string[] $allowedTypes
      */
     private static array $allowedTypes = ['js', 'css'];
+
+    /**
+     * Add a logger to log errors
+     * @todo move this into some class in DumpsterfireBase
+     * @param LoggerInterface $logger
+     * @return void
+     */
+    public static function setLogger(LoggerInterface $logger): void
+    {
+        self::$logger = $logger;
+    }
+
+    public static function getLogger(): ?LoggerInterface
+    {
+        return self::$logger;
+    }
 
     public static function get(): array
     {
@@ -43,8 +62,7 @@ class DefaultDependencies
         try {
             self::protect($type);
         } catch (AssetsException $e) {
-            // handle gracefully the wrong type of asset
-            // @todo log somewhere graceful handlings
+            self::$logger?->log($e->getMessage());
             return;
         }
         if (!in_array($path, self::$default[$type])) {
